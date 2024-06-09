@@ -5,8 +5,8 @@ Framework for automation testing website [automation exercise](https://www.autom
 Install IntelliJ Idea CE for automation tests development.
 <br><br/>
 ## Technologies stack
-* [Java 21 JDK](https://adoptium.net/temurin/releases/?version=21&package=jdk)
-* [Maven](https://maven.apache.org/)
-* [Selenium](https://www.selenium.dev/)
-* [WebDriverMenager](https://github.com/bonigarcia/webdrivermanager)
-* [JUnit](https://junit.org/junit5/)
+  * [Java 21 JDK](https://adoptium.net/temurin/releases/?version=21&package=jdk)
+  * [Maven](https://maven.apache.org/)
+  * [Selenium](https://www.selenium.dev/)
+  * [WebDriverMenager](https://github.com/bonigarcia/webdrivermanager)
+  * [JUnit](https://junit.org/junit5/)
