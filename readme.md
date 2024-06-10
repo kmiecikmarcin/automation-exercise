@@ -10,3 +10,4 @@ Install IntelliJ Idea CE for automation tests development.
   * [Selenium](https://www.selenium.dev/)
   * [WebDriverMenager](https://github.com/bonigarcia/webdrivermanager)
   * [JUnit](https://junit.org/junit5/)
+  * [Allure Reports](https://allurereport.org/docs/)
