@@ -1,41 +1,55 @@
 package com.automationexercise.tests;
 
+import com.automationexercise.framework.browserSetup.WebDriverSetup;
+import com.automationexercise.framework.helpers.Generators;
 import com.automationexercise.framework.helpers.UserData;
+import com.automationexercise.framework.pageObjectModel.BasePage;
+import com.automationexercise.framework.pageObjectModel.CommonElementsPage;
+import com.automationexercise.framework.pageObjectModel.HomePage;
 import com.automationexercise.framework.pageObjectModel.SignupAndLoginPages.SignupAndLoginPage;
+import com.automationexercise.tests.steps.signup.CreateNewUser;
 import io.qameta.allure.Step;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.WebDriver;
 
-class OnBoarding extends BaseTest {
+class OnBoarding {
 
-    @Test
-    @Step("Register user")
-    void createNewUser() {
+    public String userName;
+    public String userEmail;
+    public WebDriver driver;
+    protected WebDriverSetup webDriverSetup;
+    public BasePage basePage;
+    public HomePage homePage;
+    public CommonElementsPage commonElementsPage;
+    public CreateNewUser createNewUser;
 
-        // User is on home page and see everything
-        homePage.homePageIsLoaded();
-        commonElementsPage.commonElementsAreLoaded();
+    public OnBoarding() {
+        userName = Generators.userName();
+        userEmail = Generators.generateEmail();
 
-        // Accept consent
-        commonElementsPage.acceptGoogleConsent();
+        webDriverSetup = new WebDriverSetup();
+        driver = webDriverSetup.chromeSetup();
+    }
 
-        // User clicks on signup button
-        commonElementsPage.clickOnSignUpButton();
-        
-        // Website loads signup and login page
-        SignupAndLoginPage signupAndLoginPage = new SignupAndLoginPage(driver);
-        signupAndLoginPage.signupAndLoginPageIsLoaded();
-        
-        // Enter a name and email address
-        UserData userData = new UserData(userName, userEmail);
-        signupAndLoginPage.enterNameEmailAddressAndClickOnSignup(userData);
+    @BeforeEach
+    void testSetUp() {
+        basePage = new BasePage(driver);
+        homePage = new HomePage(driver);
+        commonElementsPage = new CommonElementsPage(driver);
 
-        // Fill the details
-
+        createNewUser = new CreateNewUser(driver, homePage, commonElementsPage, userName, userEmail);
     }
 
     @Test
-    @Step("Login user with correct email and password")
-    void loginUserWithProperData() {
+    @Step("Register user")
+    void registerUser() {
+        createNewUser.createNewUser();
+    }
 
+    @AfterEach
+    void testTearDown() {
+        driver.quit();
     }
 }
