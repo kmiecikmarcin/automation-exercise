@@ -18,9 +18,12 @@ public class BasePage {
         waitForElement(element);
         element.click();
     }
-
     public void inputTextToElement(WebElement element, String text) {
         waitForElement(element);
         element.sendKeys(text);
+    }
+    public String getTextFromValue(WebElement element) {
+        waitForElement(element);
+        return element.getAttribute("value");
     }
 }

@@ -2,20 +2,21 @@ package com.automationexercise.tests;
 
 import com.automationexercise.framework.browserSetup.WebDriverSetup;
 import com.automationexercise.framework.helpers.Generators;
+import com.automationexercise.framework.helpers.UserData;
 import com.automationexercise.framework.pageObjectModel.BasePage;
 import com.automationexercise.framework.pageObjectModel.CommonElementsPage;
 import com.automationexercise.framework.pageObjectModel.HomePage;
 import com.automationexercise.tests.steps.signup.SignupNewUser;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 
-class Login{
+class Onboarding {
 
-    public String userName;
-    public String userEmail;
+    public String userName, userEmail, userPassword;
     public WebDriver driver;
     protected WebDriverSetup webDriverSetup;
     public BasePage basePage;
@@ -23,16 +24,15 @@ class Login{
     public CommonElementsPage commonElementsPage;
     public SignupNewUser signupNewUser;
 
-    public Login() {
+    @BeforeEach
+    void testSetUp() {
         userName = Generators.USER_NAME;
         userEmail = Generators.generateEmail();
+        userPassword = Generators.USER_PASSWORD;
 
         webDriverSetup = new WebDriverSetup();
         driver = webDriverSetup.chromeSetup();
-    }
 
-    @BeforeEach
-    void testSetUp() {
         basePage = new BasePage(driver);
         homePage = new HomePage(driver);
         commonElementsPage = new CommonElementsPage(driver);
@@ -40,13 +40,39 @@ class Login{
         signupNewUser = new SignupNewUser(driver, homePage, commonElementsPage, userName, userEmail);
     }
 
-    @Test
-    void loginUserWithProperData() {
-
-    }
-
     @AfterEach
     void testTearDown() {
         driver.quit();
+    }
+
+    @Test
+    @Step("Register user")
+    void registerUser() {
+
+        // Home page
+        signupNewUser.homePageIsLoaded();
+        signupNewUser.startOnboarding();
+
+        // Signup/Login page
+        signupNewUser.signupAndLoginPageIsLoaded();
+        signupNewUser.fillNameAndEmailForSignup();
+        signupNewUser.clicksOnSignUpButton();
+
+        // Signup details page
+        signupNewUser.signupDetailsPageIsLoaded();
+
+        UserData userDataOnSignupDetailsPage = signupNewUser.getNameAndEmail();
+
+        signupNewUser.fillUserDetailsData();
+
+        // Account created page
+        signupNewUser.accountPageIsLoaded();
+
+
+        // Assert
+        Assertions.assertEquals(userName, userDataOnSignupDetailsPage.userName);
+        Assertions.assertEquals(userEmail, userDataOnSignupDetailsPage.userEmail);
+
+        //Assertions.assertEquals();
     }
 }

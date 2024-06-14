@@ -38,14 +38,15 @@ public class SignupAndLoginPage extends BasePage {
         waitForElement(nameInput);
         waitForElement(signupEmailAddressInput);
     }
-    public void enterNameEmailAddressAndClickOnSignup(UserData userData) {
+    public void enterNameEmailAddress(UserData userData) {
 
-        String name = userData.name;
+        String name = userData.userName;
         String emailAddress = userData.userEmail;
 
         inputTextToElement(nameInput, name);
         inputTextToElement(signupEmailAddressInput, emailAddress);
-
+    }
+    public void clicksOnSignupButton() {
         clickOnElement(signupButton);
     }
 }
