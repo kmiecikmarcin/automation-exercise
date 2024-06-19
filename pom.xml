@@ -15,9 +15,11 @@
         <junit.version>4.13.2</junit.version>
         <webdrivermanager.version>5.8.0</webdrivermanager.version>
         <junit-jupiter.version>5.10.2</junit-jupiter.version>
+        <allure-java.version>2.25.0</allure-java.version>
         <allure.version>2.27.0</allure.version>
         <allure-maven.version>2.12.0</allure-maven.version>
         <aspectj.version>1.9.21</aspectj.version>
+        <maven-checkstyle.version>3.4.0</maven-checkstyle.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -43,6 +45,11 @@
             <artifactId>junit-jupiter</artifactId>
             <version>${junit-jupiter.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-java-commons</artifactId>
+            <version>${allure-java.version}</version>
         </dependency>
         <dependency>
             <groupId>io.qameta.allure</groupId>
@@ -100,7 +107,21 @@
                     <reportTimeout>600</reportTimeout>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven-checkstyle.version}</version>
+                <configuration>
+                    <configLocation>checkstyle.xml</configLocation>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-
 </project>
