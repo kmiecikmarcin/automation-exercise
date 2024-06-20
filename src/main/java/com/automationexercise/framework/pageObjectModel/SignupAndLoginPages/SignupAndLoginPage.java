@@ -2,6 +2,7 @@ package com.automationexercise.framework.pageObjectModel.SignupAndLoginPages;
 
 import com.automationexercise.framework.helpers.UserData;
 import com.automationexercise.framework.pageObjectModel.BasePage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -25,6 +26,7 @@ public class SignupAndLoginPage extends BasePage {
             By.xpath("//*[@action='/signup']//*[@type='email']"));
     protected WebElement signupButton = driver.findElement(By.xpath("//*[@data-qa='signup-button']"));
 
+    @Step("Check that elements on signup/login page are loaded")
     public void signupAndLoginPageIsLoaded() {
 
         waitForElement(loginToYourAccountText);
@@ -39,6 +41,7 @@ public class SignupAndLoginPage extends BasePage {
         waitForElement(signupEmailAddressInput);
     }
 
+    @Step("Fill a name and address email")
     public void enterNameEmailAddress(UserData userData) {
 
         String name = userData.getUserName();
@@ -48,6 +51,7 @@ public class SignupAndLoginPage extends BasePage {
         inputTextToElement(signupEmailAddressInput, emailAddress);
     }
 
+    @Step("Click on signup button")
     public void clicksOnSignupButton() {
         clickOnElement(signupButton);
     }

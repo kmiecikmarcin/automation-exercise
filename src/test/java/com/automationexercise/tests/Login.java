@@ -1,12 +1,10 @@
 package com.automationexercise.tests;
 
 import com.automationexercise.framework.browserSetup.WebDriverSetup;
-import com.automationexercise.framework.helpers.Generators;
 import com.automationexercise.framework.pageObjectModel.BasePage;
 import com.automationexercise.framework.pageObjectModel.CommonElementsPage;
 import com.automationexercise.framework.pageObjectModel.HomePage;
-import com.automationexercise.tests.steps.signup.SignupNewUser;
-import io.qameta.allure.Step;
+import com.automationexercise.tests.steps.login.LoginSteps;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,12 +19,10 @@ class Login{
     public BasePage basePage;
     public HomePage homePage;
     public CommonElementsPage commonElementsPage;
-    public SignupNewUser signupNewUser;
+    public Onboarding onboarding;
+    public LoginSteps loginSteps;
 
     public Login() {
-        userName = Generators.USER_NAME;
-        userEmail = Generators.generateEmail();
-
         webDriverSetup = new WebDriverSetup();
         driver = webDriverSetup.chromeSetup();
     }
@@ -37,11 +33,21 @@ class Login{
         homePage = new HomePage(driver);
         commonElementsPage = new CommonElementsPage(driver);
 
-        signupNewUser = new SignupNewUser(driver, homePage, commonElementsPage, userName, userEmail);
+        onboarding = new Onboarding();
+
+        loginSteps = new LoginSteps(driver, homePage, commonElementsPage);
     }
 
     @Test
-    void loginUserWithProperData() {
+    void deleteUserAccount() {
+
+        // Create na new account
+        onboarding.registerUser();
+
+        // Check that user see proper elements after logged-in
+        loginSteps.homePageIsLoaded();
+
+        // Delete created account
 
     }
 

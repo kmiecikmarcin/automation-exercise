@@ -7,7 +7,7 @@ import com.automationexercise.framework.helpers.UserData;
 import com.automationexercise.framework.pageObjectModel.BasePage;
 import com.automationexercise.framework.pageObjectModel.CommonElementsPage;
 import com.automationexercise.framework.pageObjectModel.HomePage;
-import com.automationexercise.tests.steps.signup.SignupNewUser;
+import com.automationexercise.tests.steps.signup.SignupSteps;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -23,7 +23,7 @@ class Onboarding {
     public BasePage basePage;
     public HomePage homePage;
     public CommonElementsPage commonElementsPage;
-    public SignupNewUser signupNewUser;
+    public SignupSteps signupSteps;
 
     @BeforeEach
     void testSetUp() {
@@ -38,7 +38,7 @@ class Onboarding {
         homePage = new HomePage(driver);
         commonElementsPage = new CommonElementsPage(driver);
 
-        signupNewUser = new SignupNewUser(driver, homePage, commonElementsPage, userName, userEmail);
+        signupSteps = new SignupSteps(driver, homePage, commonElementsPage, userName, userEmail);
     }
 
     @AfterEach
@@ -51,34 +51,35 @@ class Onboarding {
     void registerUser() {
 
         // Home page
-        signupNewUser.homePageIsLoaded();
-        signupNewUser.startOnboarding();
+        signupSteps.homePageIsLoaded();
+        signupSteps.startOnboarding();
 
         // Signup/Login page
-        signupNewUser.signupAndLoginPageIsLoaded();
-        signupNewUser.fillNameAndEmailForSignup();
-        signupNewUser.clicksOnSignUpButton();
+        signupSteps.signupAndLoginPageIsLoaded();
+        signupSteps.fillNameAndEmailForSignup();
+        signupSteps.clicksOnSignUpButton();
 
         // Signup details page
-        signupNewUser.signupDetailsPageIsLoaded();
+        signupSteps.signupDetailsPageIsLoaded();
 
-        UserData userDataOnSignupDetailsPage = signupNewUser.getNameAndEmail();
+        UserData userDataOnSignupDetailsPage = signupSteps.getNameAndEmail();
 
-        signupNewUser.fillUserDetailsData();
-        signupNewUser.clickOnCreateAccountButton();
+        signupSteps.fillUserDetailsData();
+        signupSteps.clickOnCreateAccountButton();
 
         // Account created page
-        signupNewUser.accountCreatedPageIsLoaded();
+        signupSteps.accountCreatedPageIsLoaded();
+        signupSteps.clickOnContinueButton();
 
         // Assert
         Assertions.assertEquals(userName, userDataOnSignupDetailsPage.getUserName());
         Assertions.assertEquals(userEmail, userDataOnSignupDetailsPage.getUserEmail());
 
-        Assertions.assertEquals(signupNewUser.getAccountCreatedText(),
+        Assertions.assertEquals(signupSteps.getAccountCreatedText(),
                 AccountCreatedMessages.ACCOUNT_CREATED.getMessage());
-        Assertions.assertEquals(signupNewUser.getCongratulationsText(),
+        Assertions.assertEquals(signupSteps.getCongratulationsText(),
                 AccountCreatedMessages.CONGRATULATIONS.getMessage());
-        Assertions.assertEquals(signupNewUser.getDescriptionText(),
+        Assertions.assertEquals(signupSteps.getDescriptionText(),
                 AccountCreatedMessages.DESCRIPTION.getMessage());
     }
 }

@@ -9,7 +9,7 @@ import com.automationexercise.framework.pageObjectModel.SignupAndLoginPages.Sign
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 
-public class SignupNewUser {
+public class SignupSteps {
 
     public WebDriver driver;
     public HomePage homePage;
@@ -17,8 +17,8 @@ public class SignupNewUser {
     public String userName;
     public String userEmail;
 
-    public SignupNewUser(WebDriver driver, HomePage homePage, CommonElementsPage commonElements, String userName,
-                         String userEmail) {
+    public SignupSteps(WebDriver driver, HomePage homePage, CommonElementsPage commonElements, String userName,
+                       String userEmail) {
         this.driver = driver;
         this.homePage = homePage;
         this.commonElementsPage = commonElements;
@@ -26,7 +26,7 @@ public class SignupNewUser {
         this.userEmail = userEmail;
     }
 
-    @Step("Check that elements on home page are loaded")
+    @Step("User sees elements on home page")
     public void homePageIsLoaded() {
         // Accept consent
         commonElementsPage.acceptGoogleConsent();
@@ -63,21 +63,21 @@ public class SignupNewUser {
         signupAndLoginPage.clicksOnSignupButton();
     }
 
-    @Step("Elements on signup details page are loaded")
+    @Step("User sees elements on signup details page")
     public void signupDetailsPageIsLoaded() {
         // Check that signup details page is loaded
         SignupDetailsPage signupDetailsPage = new SignupDetailsPage(driver);
         signupDetailsPage.signupDetailsPageIsLoaded();
     }
 
-    @Step("Returns name and email from signup details page")
+    @Step("Website returns a name and email from signup details page")
     public UserData getNameAndEmail() {
         // Returns username and email
         SignupDetailsPage signupDetailsPage = new SignupDetailsPage(driver);
         return signupDetailsPage.getNameAndEmail();
     }
 
-    @Step("Fill user details")
+    @Step("User fills a details")
     public void fillUserDetailsData() {
         SignupDetailsPage signupDetailsPage = new SignupDetailsPage(driver);
 
@@ -124,5 +124,13 @@ public class SignupNewUser {
 
         // Check that elements are visible
         return accountCreatedPage.getDescriptionText();
+    }
+
+    @Step("User clicks on continue button")
+    public void clickOnContinueButton() {
+        AccountCreatedPage accountCreatedPage = new AccountCreatedPage(driver);
+
+        // User clicks on continue button
+        accountCreatedPage.clickOnContinueButton();
     }
 }

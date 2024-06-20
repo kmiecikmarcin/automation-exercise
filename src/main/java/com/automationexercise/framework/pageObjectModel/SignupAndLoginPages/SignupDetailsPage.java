@@ -3,6 +3,7 @@ package com.automationexercise.framework.pageObjectModel.SignupAndLoginPages;
 import com.automationexercise.framework.helpers.Generators;
 import com.automationexercise.framework.helpers.UserData;
 import com.automationexercise.framework.pageObjectModel.BasePage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -71,11 +72,13 @@ public class SignupDetailsPage extends BasePage {
     protected WebElement createAccountButton = driver.findElement(
             By.xpath("//*[text()='Create Account']"));
 
+    @Step("Signup details page is loaded")
     public void signupDetailsPageIsLoaded() {
         accountInformationElementsAreLoaded();
         addressInformationElementsAreLoaded();
     }
 
+    @Step("Fill a required account information")
     public void fillAccountInformation() {
         clickOnElement(titleMrCheckbox);
 
@@ -89,10 +92,12 @@ public class SignupDetailsPage extends BasePage {
         clickOnElement(specialOffersCheckBox);
     }
 
+    @Step("Return provided by user a name and email")
     public UserData getNameAndEmail() {
         return new UserData(getTextFromValue(nameInput), getTextFromValue(emailInput));
     }
 
+    @Step("Fill user address information")
     public void fillAddressInformation() {
         inputTextToElement(firstNameInput, "John");
         inputTextToElement(lastNameInput, "Doe");
@@ -106,12 +111,14 @@ public class SignupDetailsPage extends BasePage {
         inputTextToElement(mobileNumberInput, "1660156700");
     }
 
+    @Step("Click on create account button")
     public void clickOnCreateAccount() {
         scrollToElement(createAccountButton);
 
         clickOnElement(createAccountButton);
     }
 
+    @Step("Elements about account information are loaded")
     private void accountInformationElementsAreLoaded() {
         waitForElement(enterAccountInformationText);
         waitForElement(titleText);
@@ -131,6 +138,7 @@ public class SignupDetailsPage extends BasePage {
         waitForElement(specialOffersCheckBox);
     }
 
+    @Step("Elements about address information are loaded")
     private void addressInformationElementsAreLoaded() {
         waitForElement(addressInformationText);
         waitForElement(firstNameText);
@@ -152,21 +160,25 @@ public class SignupDetailsPage extends BasePage {
         waitForElement(createAccountButton);
     }
 
+    @Step("Select a day of birth")
     private void selectDay() {
         Select select = new Select(dayCheckList);
         select.selectByVisibleText("10");
     }
 
+    @Step("Select a month of birth")
     private void selectMonth() {
         Select select = new Select(monthCheckList);
         select.selectByVisibleText("March");
     }
 
+    @Step("Select a year of birth")
     private void selectYear() {
         Select select = new Select(yearCheckList);
         select.selectByVisibleText("1995");
     }
 
+    @Step("Select a country")
     private void selectCountry() {
         Select select = new Select(countryCheckBox);
         select.selectByVisibleText("United States");

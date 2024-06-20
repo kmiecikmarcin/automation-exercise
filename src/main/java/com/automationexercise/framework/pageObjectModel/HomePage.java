@@ -1,5 +1,6 @@
 package com.automationexercise.framework.pageObjectModel;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,6 +25,7 @@ public class HomePage extends BasePage {
     protected WebElement recommendedItemsText = driver.findElement(
             By.xpath("//*[text()='recommended items']"));
 
+    @Step("Check that elements on home page are loaded")
     public void homePageIsLoaded() {
 
         waitForElement(categoryText);

@@ -1,5 +1,6 @@
 package com.automationexercise.framework.pageObjectModel;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -38,6 +39,12 @@ public class CommonElementsPage extends BasePage {
     // Others
     protected WebElement scrollUpButton = driver.findElement(By.xpath("//*[@id='scrollUp']"));
 
+    // Home page for logged-in user
+    protected WebElement logoutButton = driver.findElement(By.xpath("//*[text()=' Logout']"));
+    protected WebElement deleteAccountButton = driver.findElement(
+            By.xpath("//*[text()=' Delete Account']"));
+
+    @Step("Check that common elements are loaded")
     public void commonElementsAreLoaded() {
 
         waitForElement(automationExerciseLogo);
@@ -58,11 +65,35 @@ public class CommonElementsPage extends BasePage {
         waitForElement(scrollUpButton);
     }
 
+    @Step("Click on signup button")
     public void clickOnSignUpButton() {
         clickOnElement(signUpAndLoginButton);
     }
 
+    @Step("Click and accept google consent")
     public void acceptGoogleConsent() {
         clickOnElement(consentButton);
+    }
+
+    @Step("Check that common elements for logged-in user are loaded")
+    public void commonElementsAreLoadedForLoggedInUser() {
+
+        waitForElement(automationExerciseLogo);
+
+        waitForElement(homeButton);
+        waitForElement(productsButton);
+        waitForElement(cartButton);
+        waitForElement(logoutButton);
+        waitForElement(deleteAccountButton);
+        waitForElement(testCasesButton);
+        waitForElement(apiTestingButton);
+        waitForElement(videoTutorialsButton);
+        waitForElement(contactUsButton);
+
+        waitForElement(subscriptionText);
+        waitForElement(yourEmailAddressInput);
+        waitForElement(subscribeButton);
+
+        waitForElement(scrollUpButton);
     }
 }
